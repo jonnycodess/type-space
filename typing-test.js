@@ -11,10 +11,14 @@ function calcGrossWPM(charsInput) {
 }
 
 function updateCountDown() {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
-  countdownEl.innerHTML = `${minutes}:${seconds}`;
-  time--;
+  let inputLength = getCharsInput(testArea);
+  console.log(inputLength)
+  if (inputLength !== 0) {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+    countdownEl.innerHTML = `${minutes}:${seconds}`;
+    time--;
+  }
 }
 
 let testArea = document.querySelector('.test-area');
