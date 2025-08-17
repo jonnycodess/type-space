@@ -1,3 +1,4 @@
+// Returns the amount of characters input by the user
 function getCharsInput(testArea) {
   let value = testArea.value;
   return value.length;
@@ -5,15 +6,13 @@ function getCharsInput(testArea) {
 
 // Gross WPM = (chars typed/5) / (time in seconds/60)
 function calcGrossWPM(charsInput) {
-  let chars = charsInput;
   let timeInSeconds = 30;
-  return console.log(((chars/5) / (timeInSeconds/60)));
+  return console.log(((charsInput / 5) / (timeInSeconds / 60)));
 }
 
 function updateCountDown() {
   let inputLength = getCharsInput(testArea);
-  console.log(inputLength)
-  if (inputLength !== 0) {
+  if (inputLength !== 0 || inputLength === 0 && time !== startingMinutes * 60) {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
     countdownEl.innerHTML = `${minutes}:${seconds}`;
@@ -30,4 +29,5 @@ let time = startingMinutes * 60;
 
 const countdownEl = document.getElementById('countdown');
 
+// Updates the timer every second
 setInterval(updateCountDown, 1000);
