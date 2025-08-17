@@ -7,7 +7,7 @@ function getCharsInput(testArea) {
 // Gross WPM = (chars typed / 5) / (time in seconds / 60)
 function calcGrossWPM(charsInput) {
   let timeInSeconds = 30;
-  return console.log(((charsInput / 5) / (timeInSeconds / 60)));
+  return ((charsInput / 5) / (timeInSeconds / 60));
 }
 
 function updateCountDown() {
@@ -26,15 +26,19 @@ function updateCountDown() {
     }
   }
   else {
+    let wpm = calcGrossWPM(getCharsInput(testArea)).toString();
+    displayGrossWPM.innerHTML = `${wpm} words per minute`;
     clearInterval(countdownIntervalID);
   }
 }
+
+let displayGrossWPM = document.querySelector('#gross-wpm');
 
 let testArea = document.querySelector('.test-area');
 let calcButton = document.querySelector('.calc-btn');
 calcButton.addEventListener('click', () => calcGrossWPM(getCharsInput(testArea)));
 
-const startingMinutes = 0.5;
+const startingMinutes = 0.1;
 let time = startingMinutes * 60;
 
 const countdownEl = document.getElementById('countdown');
