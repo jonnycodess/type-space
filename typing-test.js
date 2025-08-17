@@ -4,7 +4,7 @@ function getCharsInput(testArea) {
   return value.length;
 }
 
-// Gross WPM = (chars typed/5) / (time in seconds/60)
+// Gross WPM = (chars typed / 5) / (time in seconds / 60)
 function calcGrossWPM(charsInput) {
   let timeInSeconds = 30;
   return console.log(((charsInput / 5) / (timeInSeconds / 60)));
@@ -12,11 +12,21 @@ function calcGrossWPM(charsInput) {
 
 function updateCountDown() {
   let inputLength = getCharsInput(testArea);
-  if (inputLength !== 0 || inputLength === 0 && time !== startingMinutes * 60) {
-    const minutes = Math.floor(time / 60);
-    let seconds = time % 60;
-    countdownEl.innerHTML = `${minutes}:${seconds}`;
-    time--;
+  if (countdownEl.innerHTML !== '0:00') {
+    if (inputLength !== 0 || inputLength === 0 && time !== startingMinutes * 60) {
+      const minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      if (seconds <= 9) {
+        countdownEl.innerHTML = `${minutes}:0${seconds}`;
+      }
+      else if (seconds >= 10) {
+      countdownEl.innerHTML = `${minutes}:${seconds}`;
+      }
+      time--;
+    }
+  }
+  else {
+    clearInterval(countdownIntervalID);
   }
 }
 
@@ -29,5 +39,4 @@ let time = startingMinutes * 60;
 
 const countdownEl = document.getElementById('countdown');
 
-// Updates the timer every second
-setInterval(updateCountDown, 1000);
+let countdownIntervalID = setInterval(updateCountDown, 1000); // Updates the timer every second
