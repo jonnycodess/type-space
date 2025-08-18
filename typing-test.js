@@ -82,7 +82,6 @@ let testText = document.querySelector('#test-text');
 
 generateTestWords();
 
-
 let displayGrossWPM = document.querySelector('#gross-wpm');
 
 let testArea = document.querySelector('.test-area');
@@ -95,3 +94,20 @@ let time = startingMinutes * 60;
 const countdownEl = document.getElementById('countdown');
 
 let countdownIntervalID = setInterval(updateCountDown, 1000); // Updates the timer every second
+
+testArea.addEventListener('keydown', checkAccuracy)
+
+let i = 0;
+function checkAccuracy(event) {
+  if (event.key === testText.innerHTML.at(i)) {
+    console.log('correct')
+    console.log(event.key)
+    console.log(testText.innerHTML.at(i))
+  }
+  else {
+    console.log('incorrect')
+    console.log(event.key)
+    console.log(testText.innerHTML.at(i))
+  }
+  i++
+}
