@@ -78,9 +78,25 @@ function generateTestWords() {
   }
 }
 
+function wrapCharsInSpans() {
+  let charSplit = testText.innerHTML.split('');
+  let j = 0;
+  let tempPara = document.createElement('p')
+  charSplit.map(() => {
+    tempPara.innerHTML += `<span class="test-char">${testText.innerHTML.at(j)}</span>`;
+    j++;
+  })
+  testText.innerHTML = tempPara.innerHTML;
+}
+
+function generateTestText() {
+  generateTestWords();
+  wrapCharsInSpans();
+}
+
 let testText = document.querySelector('#test-text');
 
-generateTestWords();
+generateTestText();
 
 let displayGrossWPM = document.querySelector('#gross-wpm');
 
