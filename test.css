@@ -2,6 +2,14 @@
   color: rgb(29, 29, 154);
 }
 
+.correct-char { 
+  color: rgb(0, 255, 0);
+}
+
+.incorrect-char {
+  color: red;
+}
+
 * {
   background-color: rgb(91, 91, 91);
   color: rgb(215, 215, 215);

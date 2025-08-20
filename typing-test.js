@@ -115,15 +115,17 @@ testArea.addEventListener('keydown', checkAccuracy)
 
 let i = 0;
 function checkAccuracy(event) {
-  if (event.key === testText.innerHTML.at(i)) {
+  if (event.key === testText.innerText.at(i)) {
+    testText.children[i].classList.add('correct-char');
     console.log('correct')
     console.log(event.key)
-    console.log(testText.innerHTML.at(i))
+    console.log(testText.innerText.at(i))
   }
   else {
+    testText.children[i].classList.add('incorrect-char');
     console.log('incorrect')
     console.log(event.key)
-    console.log(testText.innerHTML.at(i))
+    console.log(testText.innerText.at(i))
   }
   i++
 }
