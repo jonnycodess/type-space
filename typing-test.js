@@ -115,17 +115,23 @@ testArea.addEventListener('keydown', checkAccuracy)
 
 let i = 0;
 function checkAccuracy(event) {
-  if (event.key === testText.innerText.at(i)) {
+  if (event.key === 'Backspace') {
+    testText.children[i - 1].classList.remove('correct-char', 'incorrect-char');
+    testText.children[i - 1].classList.add('test-char');
+    i--;
+  }
+  else if (event.key === testText.innerText.at(i)) {
     testText.children[i].classList.add('correct-char');
     console.log('correct')
     console.log(event.key)
     console.log(testText.innerText.at(i))
+    i++;
   }
   else {
     testText.children[i].classList.add('incorrect-char');
     console.log('incorrect')
     console.log(event.key)
     console.log(testText.innerText.at(i))
+    i++;
   }
-  i++
 }
