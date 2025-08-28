@@ -1,38 +1,15 @@
 const words = [
-  "apple", "banana", "cherry", "date", "elderberry",
-  "fig", "grape", "honeydew", "kiwi", "lemon",
-  "mango", "nectarine", "orange", "papaya", "quince",
-  "raspberry", "strawberry", "tangerine", "ugli", "watermelon",
-  "avocado", "blueberry", "cantaloupe", "dragonfruit", "grapefruit",
-  "jackfruit", "kumquat", "lime", "peach", "plum",
-  "computer", "keyboard", "mouse", "screen", "laptop",
-  "monitor", "internet", "network", "software", "hardware",
-  "program", "language", "javascript", "python", "coding",
-  "algorithm", "function", "variable", "constant", "array",
-  "object", "element", "browser", "document", "window",
-  "button", "input", "form", "event", "listener",
-  "debug", "compile", "execute", "process", "thread",
-  "memory", "storage", "server", "client", "request",
-  "response", "protocol", "security", "encryption", "login",
-  "password", "username", "account", "database", "query",
-  "table", "column", "row", "index", "primary",
-  "foreign", "key", "constraint", "transaction", "commit",
-  "rollback", "error", "exception", "catch", "throw",
-  "loop", "while", "for", "break", "continue",
-  "condition", "if", "else", "switch", "case",
-  "default", "boolean", "string", "number", "integer",
-  "float", "double", "char", "null", "undefined",
-  "true", "false", "return", "console", "log",
-  "debugger", "test", "unit", "integration", "deploy",
-  "version", "control", "git", "branch", "merge",
-  "commit", "push", "pull", "clone", "fork",
-  "issue", "ticket", "sprint", "agile", "scrum",
-  "kanban", "design", "pattern", "architecture", "framework",
-  "library", "module", "package", "dependency", "installation",
-  "update", "upgrade", "backup", "restore", "recover",
-  "system", "application", "platform", "interface", "experience",
-  "user", "feedback", "feature", "bug", "release",
-  "versioning", "performance", "optimization", "load", "speed"
+  "ace", "act", "add", "ago", "aid", "aim", "air", "ale", "all", "and", 
+  "ant", "any", "ape", "arc", "are", "arm", "art", "ash", "ask", "awe", 
+  "axe", "bad", "bag", "bar", "bat", "bed", "bee", "beg", "bet", "big", 
+  "bin", "bit", "bog", "box", "boy", "bun", "bus", "but", "buy", "cab", 
+  "can", "cap", "car", "cat", "cow", "cup", "cut", "day", "dig", "dog", 
+  "dot", "dry", "due", "eat", "egg", "end", "era", "eve", "fan", "far", 
+  "fat", "fed", "few", "fig", "fin", "fit", "fix", "fly", "fog", "for", 
+  "fox", "fun", "gap", "gas", "get", "gig", "got", "gum", "gun", "guy", 
+  "hat", "hen", "hid", "hip", "hit", "hot", "how", "hug", "hum", "hut", 
+  "ice", "ink", "jam", "jar", "jet", "job", "joy", "key", "kid", "kit", 
+  "lab", "lap", "lay", "leg", "let"
 ];
 
 // Returns the amount of characters input by the user
@@ -76,18 +53,44 @@ function generateTestWords() {
     let randomWord = words[randomNumber]
     testText.innerHTML += `${randomWord} `
   }
+  testText.innerHTML = testText.innerHTML.slice(0, -1);
 }
 
 function wrapCharsInSpans() {
   let charSplit = testText.innerHTML.split('');
   let j = 0;
-  let tempPara = document.createElement('p')
+  let tempPara = document.createElement('p');
   charSplit.map(() => {
     tempPara.innerHTML += `<span class="test-char">${testText.innerHTML.at(j)}</span>`;
     j++;
   })
   testText.innerHTML = tempPara.innerHTML;
+
+  let charSplit2 = testText.innerHTML.split('');
+  let temp = document.createElement('p')
+  j = 0;
+  charSplit2.map(() => {
+    if (charSplit2.at(j - 1) === undefined) {
+    }
+    else if (j === 0) {
+      temp.textContent = '<span class="test-word">'
+    }
+    else if (charSplit2.at(j - 1) === ' ' && charSplit2.at(j) !== 'c' && charSplit2.at(j + 2) !== 'l') {
+      for (let k = 0; k < 8; k++) {
+        temp.textContent += charSplit2.at(j - 1);
+        j++;
+      }
+      temp.textContent += '</span><span class="test-word"><'
+    }
+    else {
+      temp.textContent += charSplit2.at(j - 1);
+    }
+    j++
+  })
+  temp.textContent += '</span>'
+  testText.innerHTML = temp.textContent;
 }
+
 
 function generateTestText() {
   generateTestWords();
@@ -113,25 +116,35 @@ let countdownIntervalID = setInterval(updateCountDown, 1000); // Updates the tim
 
 testArea.addEventListener('keydown', checkAccuracy)
 
-let i = 0;
+let childCounter = 0;
+let wordCounter = 0;
+
 function checkAccuracy(event) {
   if (event.key === 'Backspace') {
-    testText.children[i - 1].classList.remove('correct-char', 'incorrect-char');
-    testText.children[i - 1].classList.add('test-char');
-    i--;
+    if (testText.children[wordCounter].children[childCounter - 1] !== undefined) {
+      testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
+    }
+    else if (wordCounter !== 0) {
+      wordCounter--;
+      childCounter = testText.children[wordCounter].children.length;
+      testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
+    }
+    if (childCounter !== 0) {
+      childCounter--;
+    }
   }
-  else if (event.key === testText.innerText.at(i)) {
-    testText.children[i].classList.add('correct-char');
-    console.log('correct')
-    console.log(event.key)
-    console.log(testText.innerText.at(i))
-    i++;
+  else if (testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ') {
+    wordCounter++;
+    childCounter = 0;
   }
-  else {
-    testText.children[i].classList.add('incorrect-char');
-    console.log('incorrect')
-    console.log(event.key)
-    console.log(testText.innerText.at(i))
-    i++;
+  else if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
+    testText.children[wordCounter].children[childCounter].classList.add('correct-char');
+    childCounter++;
+    console.log('correct');
+  }
+  else if (event.key !== testText.children[wordCounter].children[childCounter].innerText.at(0)) {
+    testText.children[wordCounter].children[childCounter].classList.add('incorrect-char');
+    childCounter++;
+    console.log('incorrect');
   }
 }
