@@ -12,25 +12,20 @@ const words = [
   "lab", "lap", "lay", "leg", "let"
 ];
 
-// Returns the amount of characters input by the user
-function getCharsInput(testArea) {
-  let value = testArea.value;
-  return value.length;
-}
-
 // Gross WPM = (chars typed / 5) / (time in seconds / 60)
 function calcGrossWPM(charsInput) {
   let timeInSeconds = 30;
-  console.log((charsInput / 5) / (timeInSeconds / 60));
   return ((charsInput / 5) / (timeInSeconds / 60));
 }
 
 function updateCountDown() {
-  let inputLength = getCharsInput(testArea);
+  let inputLength = testArea.value.length;
+  const minutes = Math.floor(time / 60);
+  let seconds = time % 60;
+
+  // Countdown until timer reaches 0:00
   if (countdownEl.innerHTML !== '0:00') {
     if (inputLength !== 0 || inputLength === 0 && time !== startingMinutes * 60) {
-      const minutes = Math.floor(time / 60);
-      let seconds = time % 60;
       if (seconds <= 9) {
         countdownEl.innerHTML = `${minutes}:0${seconds}`;
       }
@@ -40,61 +35,66 @@ function updateCountDown() {
       time--;
     }
   }
+  // Stop countdown and display WPM when timer hits 0:00
   else {
-    let wpm = calcGrossWPM(getCharsInput(testArea)).toString();
-    displayGrossWPM.innerHTML = `${wpm} words per minute`;
+    displayGrossWPM.innerHTML = `${calcGrossWPM(inputLength).toString()} words per minute`;
     clearInterval(countdownIntervalID);
   }
 }
 
 function generateTestWords() {
   while (testText.innerText.length < 150) {
-    let randomNumber = Math.floor(Math.random() * words.length);
-    let randomWord = words[randomNumber]
-    testText.innerHTML += `${randomWord} `
+    testText.innerHTML += `${words[Math.floor(Math.random() * words.length)]} `;
   }
+  // Remove space after final word
   testText.innerHTML = testText.innerHTML.slice(0, -1);
 }
 
 function wrapCharsInSpans() {
-  let charSplit = testText.innerHTML.split('');
-  let j = 0;
-  let tempPara = document.createElement('p');
-  charSplit.map(() => {
-    tempPara.innerHTML += `<span class="test-char">${testText.innerHTML.at(j)}</span>`;
-    j++;
-  })
-  testText.innerHTML = tempPara.innerHTML;
+  let testTextChars = testText.innerHTML.split('');
+  let i = 0;
+  let charParagraph = document.createElement('p');
 
-  let charSplit2 = testText.innerHTML.split('');
-  let temp = document.createElement('p')
-  j = 0;
-  charSplit2.map(() => {
-    if (charSplit2.at(j - 1) === undefined) {
-    }
-    else if (j === 0) {
-      temp.textContent = '<span class="test-word">'
-    }
-    else if (charSplit2.at(j - 1) === ' ' && charSplit2.at(j) !== 'c' && charSplit2.at(j + 2) !== 'l') {
-      for (let k = 0; k < 8; k++) {
-        temp.textContent += charSplit2.at(j - 1);
-        j++;
-      }
-      temp.textContent += '</span><span class="test-word"><'
-    }
-    else {
-      temp.textContent += charSplit2.at(j - 1);
-    }
-    j++
+  testTextChars.forEach(() => {
+    charParagraph.innerHTML += `<span class="test-char">${testText.innerHTML.at(i)}</span>`;
+    i++;
   })
-  temp.textContent += '</span>'
-  testText.innerHTML = temp.textContent;
+  testText.innerHTML = charParagraph.innerHTML;
 }
 
+function wrapWordsInSpans() {
+  let testTextChars = testText.innerHTML.split('');
+  let charParagraph = document.createElement('p');
+  let i = 0;
+
+  testTextChars.forEach(() => {
+    if (testTextChars.at(i - 1) === undefined) {
+      return;
+    }
+    else if (i === 0) {
+      charParagraph.textContent = '<span class="test-word">';
+    }
+    else if (testTextChars.at(i - 1) === ' ' && testTextChars.at(i) !== 'c' && testTextChars.at(i + 2) !== 'l' && testTextChars.at(i + 3) !== 'a') {
+      for (let j = 0; j < 8; j++) {
+        charParagraph.textContent += testTextChars.at(i - 1);
+        i++;
+      }
+      charParagraph.textContent += '</span><span class="test-word"><';
+    }
+    else {
+      charParagraph.textContent += testTextChars.at(i - 1);
+    }
+    i++;
+  })
+
+  charParagraph.textContent += '</span>';
+  testText.innerHTML = charParagraph.textContent;
+}
 
 function generateTestText() {
   generateTestWords();
   wrapCharsInSpans();
+  wrapWordsInSpans();
 }
 
 let testText = document.querySelector('#test-text');
@@ -104,22 +104,28 @@ generateTestText();
 let displayGrossWPM = document.querySelector('#gross-wpm');
 
 let testArea = document.querySelector('.test-area');
-let calcButton = document.querySelector('.calc-btn');
-calcButton.addEventListener('click', () => calcGrossWPM(getCharsInput(testArea)));
 
-const startingMinutes = 0.5;
+let startingMinutes = 0.5;
 let time = startingMinutes * 60;
 
 const countdownEl = document.getElementById('countdown');
 
 let countdownIntervalID = setInterval(updateCountDown, 1000); // Updates the timer every second
 
-testArea.addEventListener('keydown', checkAccuracy)
+testArea.addEventListener('keydown', handleInput);
 
 let childCounter = 0;
 let wordCounter = 0;
+let inputHandled;
 
-function checkAccuracy(event) {
+function handleInput(event) {
+  inputHandled = false;
+  handleBackspaceInput(event);
+  moveToNextWord();
+  checkInputAccuracy(event);
+}
+
+function handleBackspaceInput(event) {
   if (event.key === 'Backspace') {
     if (testText.children[wordCounter].children[childCounter - 1] !== undefined) {
       testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
@@ -132,19 +138,29 @@ function checkAccuracy(event) {
     if (childCounter !== 0) {
       childCounter--;
     }
+    inputHandled = true;
   }
-  else if (testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ') {
+}
+
+function moveToNextWord() {
+  if (testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ' && inputHandled === false) {
     wordCounter++;
     childCounter = 0;
+    inputHandled = true;
   }
-  else if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
-    testText.children[wordCounter].children[childCounter].classList.add('correct-char');
-    childCounter++;
-    console.log('correct');
-  }
-  else if (event.key !== testText.children[wordCounter].children[childCounter].innerText.at(0)) {
-    testText.children[wordCounter].children[childCounter].classList.add('incorrect-char');
-    childCounter++;
-    console.log('incorrect');
+}
+
+function checkInputAccuracy(event) {
+  if (inputHandled === false) {
+    if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
+      testText.children[wordCounter].children[childCounter].classList.add('correct-char');
+      childCounter++; 
+      console.log('correct');
+    }
+    else {
+      testText.children[wordCounter].children[childCounter].classList.add('incorrect-char');
+      childCounter++;
+      console.log('incorrect');
+    }
   }
 }
