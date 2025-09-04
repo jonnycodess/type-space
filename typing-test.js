@@ -117,16 +117,18 @@ testArea.addEventListener('keydown', handleInput);
 let childCounter = 0;
 let wordCounter = 0;
 let inputHandled;
+let totalCharsTyped = 0;
 
 function handleInput(event) {
   inputHandled = false;
   handleBackspaceInput(event);
-  moveToNextWord();
-  checkInputAccuracy(event);
+  moveToNextWord(event);
+  checkInputAccuracy(event)
 }
 
 function handleBackspaceInput(event) {
   if (event.key === 'Backspace') {
+    totalCharsTyped -= 1;
     if (testText.children[wordCounter].children[childCounter - 1] !== undefined) {
       testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
     }
@@ -142,8 +144,9 @@ function handleBackspaceInput(event) {
   }
 }
 
-function moveToNextWord() {
-  if (testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ' && inputHandled === false) {
+function moveToNextWord(event) {
+  if (event.key === ' ' || testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ' && inputHandled === false) {
+    totalCharsTyped += 1;
     wordCounter++;
     childCounter = 0;
     inputHandled = true;
@@ -152,6 +155,7 @@ function moveToNextWord() {
 
 function checkInputAccuracy(event) {
   if (inputHandled === false) {
+    totalCharsTyped +=1;
     if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
       testText.children[wordCounter].children[childCounter].classList.add('correct-char');
       childCounter++; 
