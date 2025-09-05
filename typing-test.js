@@ -19,14 +19,19 @@ function calcGrossWPM(charsInput) {
   return ((charsInput / 5) / (timeInSeconds / 60));
 }
 
+let secondsPassed = 0;
+
 function updateCountDown() {
-  let inputLength = testArea.value.length;
   const minutes = Math.floor(time / 60);
   let seconds = time % 60;
 
   // Countdown until timer reaches 0:00
   if (countdownEl.innerHTML !== '0:00') {
-    if (inputLength !== 0 || inputLength === 0 && time !== startingMinutes * 60) {
+    if (totalCharsTyped !== 1 || totalCharsTyped === 1 && time !== startingMinutes * 60) {
+      let netWpm = Math.round((totalCharsTyped / 5) / (secondsPassed / 60));
+      if (secondsPassed !== 0) {
+        liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
+      }
       if (seconds <= 9) {
         countdownEl.innerHTML = `${minutes}:0${seconds}`;
       }
@@ -34,6 +39,7 @@ function updateCountDown() {
       countdownEl.innerHTML = `${minutes}:${seconds}`;
       }
       time--;
+      secondsPassed++;
     }
   }
   // Stop countdown and display WPM when timer hits 0:00
@@ -98,6 +104,8 @@ function generateTestText() {
   wrapWordsInSpans();
 }
 
+let liveWpmDisplay = document.getElementById('live-wpm-display');
+
 let testText = document.querySelector('#test-text');
 
 generateTestText();
@@ -129,12 +137,17 @@ function handleInput(event) {
 }
 
 function calcNetWPM(event) {
-  let timeInSeconds = 30;
+  let startingTimeInSeconds = 30;
+
   removeTypoCharsFromTotalChars(event);
   if (totalCharsTyped < 0) {
     totalCharsTyped = 0;
   }
-  console.log(`Net WPM: ${(totalCharsTyped / 5) / (timeInSeconds / 60)}`)
+  if (secondsPassed === 0) {
+    secondsPassed = 1;
+  }
+  let netWpm = Math.round((totalCharsTyped / 5) / (secondsPassed / 60));
+  // liveWpmDisplay.innerText = `${netWpm} WPM`;
 }
 
 function removeTypoCharsFromTotalChars(event) {
