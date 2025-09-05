@@ -1,4 +1,5 @@
 const words = [
+  // "hello", "ace", "with", "cooling", "because", "hi", "yes"
   "ace", "act", "add", "ago", "aid", "aim", "air", "ale", "all", "and", 
   "ant", "any", "ape", "arc", "are", "arm", "art", "ash", "ask", "awe", 
   "axe", "bad", "bag", "bar", "bat", "bed", "bee", "beg", "bet", "big", 
@@ -112,23 +113,61 @@ const countdownEl = document.getElementById('countdown');
 
 let countdownIntervalID = setInterval(updateCountDown, 1000); // Updates the timer every second
 
-testArea.addEventListener('keydown', handleInput);
+testArea.addEventListener('keyup', handleInput);
 
 let childCounter = 0;
 let wordCounter = 0;
 let inputHandled;
-let totalCharsTyped = 0;
+let totalCharsTyped = 1;
+let currentWordSubtracted = false;
 
 function handleInput(event) {
   inputHandled = false;
   handleBackspaceInput(event);
   moveToNextWord(event);
-  checkInputAccuracy(event)
+  checkInputAccuracy(event);
+}
+
+function calcNetWPM(event) {
+  let timeInSeconds = 30;
+  removeTypoCharsFromTotalChars(event);
+  if (totalCharsTyped < 0) {
+    totalCharsTyped = 0;
+  }
+  console.log(`Net WPM: ${(totalCharsTyped / 5) / (timeInSeconds / 60)}`)
+}
+
+function removeTypoCharsFromTotalChars(event) {
+  if (event.key === ' ' && currentWordSubtracted === false) {
+    let currentWordCharsTyped = 0;
+    for (let i = 0; i < testText.children[wordCounter].children.length ; i++) {
+      if (testText.children[wordCounter].children[i].classList.contains('correct-char') || testText.children[wordCounter].children[i].classList.contains('incorrect-char')) {
+      currentWordCharsTyped++;
+      console.log(`currentWordCharsTyped ${currentWordCharsTyped}`)
+      console.log(testText.children[wordCounter].children[i].classList)
+    }
+      if (currentWordSubtracted === false && testText.children[wordCounter].children[i].classList.contains('incorrect-char')) {
+        console.log('nested if')
+        console.log(`word children length ${testText.children[wordCounter].children.length}`)
+        totalCharsTyped -= testText.children[wordCounter].children.length;
+        currentWordSubtracted = true;
+        if (totalCharsTyped < 0) {
+          totalCharsTyped = 0;
+        }
+      }
+    }
+    if (currentWordSubtracted === true) {
+    totalCharsTyped -= currentWordCharsTyped + 1;
+    }
+    currentWordSubtracted = false;
+  }
 }
 
 function handleBackspaceInput(event) {
   if (event.key === 'Backspace') {
-    totalCharsTyped -= 1;
+    if (totalCharsTyped > 0) {
+      totalCharsTyped--;
+    }
     if (testText.children[wordCounter].children[childCounter - 1] !== undefined) {
       testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
     }
@@ -146,6 +185,10 @@ function handleBackspaceInput(event) {
 
 function moveToNextWord(event) {
   if (event.key === ' ' || testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ' && inputHandled === false) {
+    calcNetWPM(event);
+    if (event.key === ' ') {
+      testArea.value = '';
+    }
     totalCharsTyped += 1;
     wordCounter++;
     childCounter = 0;
