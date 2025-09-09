@@ -1,16 +1,47 @@
 const words = [
-  // "hello", "ace", "with", "cooling", "because", "hi", "yes"
-  "ace", "act", "add", "ago", "aid", "aim", "air", "ale", "all", "and", 
-  "ant", "any", "ape", "arc", "are", "arm", "art", "ash", "ask", "awe", 
-  "axe", "bad", "bag", "bar", "bat", "bed", "bee", "beg", "bet", "big", 
-  "bin", "bit", "bog", "box", "boy", "bun", "bus", "but", "buy", "cab", 
-  "can", "cap", "car", "cat", "cow", "cup", "cut", "day", "dig", "dog", 
-  "dot", "dry", "due", "eat", "egg", "end", "era", "eve", "fan", "far", 
-  "fat", "fed", "few", "fig", "fin", "fit", "fix", "fly", "fog", "for", 
-  "fox", "fun", "gap", "gas", "get", "gig", "got", "gum", "gun", "guy", 
-  "hat", "hen", "hid", "hip", "hit", "hot", "how", "hug", "hum", "hut", 
-  "ice", "ink", "jam", "jar", "jet", "job", "joy", "key", "kid", "kit", 
-  "lab", "lap", "lay", "leg", "let"
+  "the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "her", "was", "one", "our", "out",
+  "day", "get", "has", "him", "his", "how", "man", "new", "now", "old", "see", "two", "way", "who", "boy", "did",
+  "its", "let", "put", "say", "she", "too", "use", "very", "back", "even", "here", "just", "know", "live", "long",
+  "made", "make", "more", "only", "over", "some", "take", "them", "then", "these", "thing", "think", "time", "well",
+  "were", "when", "what", "with", "your", "about", "after", "again", "another", "because", "before", "between",
+  "could", "different", "first", "found", "great", "little", "might", "people", "place", "right", "small", "still",
+  "such", "through", "under", "where", "while", "without", "world", "would", "always", "around", "become", "better",
+  "before", "enough", "family", "father", "friend", "friend", "important", "inside", "later", "letter", "letter",
+  "number", "officer", "particular", "problem", "provide", "question", "remember", "something", "together", "toward",
+  "until", "usually", "within", "without", "anything", "becoming", "beginning", "business", "children", "continue",
+  "different", "example", "interest", "learning", "literally", "moment", "nothing", "outside", "possible", "powerful",
+  "practice", "probably", "remember", "response", "running", "sentence", "sometimes", "suddenly", "support", "together",
+  "towards", "treatment", "understand", "whatever", "whether", "without", "yesterday", "according", "beautiful",
+  "community", "consider", "different", "experience", "including", "individual", "international", "important",
+  "necessary", "opportunity", "particular", "situation", "something", "understanding", "throughout", "throughout",
+  "everything", "interesting", "development", "relationship", "information", "understanding", "environment", "government",
+  "organization", "technology", "relationship", "management", "development", "communication", "conversation",
+  "introduction", "consideration", "understanding", "understanding", "representation", "responsibility", "organization",
+  "establishment", "identification", "relationship", "determination", "entertainment", "preparation", "consideration",
+  "development", "understanding", "understanding", "organization", "management", "establishment", "identification",
+  "consideration", "information", "understanding", "development", "organization", "communication", "relationship",
+  "understanding", "environment", "organization", "management", "development", "relationship", "consideration",
+  "understanding", "organization", "communication", "organization", "relationship", "development", "information",
+  "consideration", "organization", "relationship", "management", "development", "communication", "relationship",
+  "consideration", "understanding", "organization", "relationship", "development", "communication", "consideration",
+  "organization", "relationship", "understanding", "development", "organization", "relationship", "communication",
+  "consideration", "development", "organization", "relationship", "understanding", "communication", "development",
+  "organization", "relationship", "consideration", "development", "understanding", "organization", "relationship",
+  "communication", "development", "organization", "relationship", "consideration", "understanding", "organization",
+  "relationship", "communication", "development", "organization", "relationship", "consideration", "understanding",
+  "organization", "relationship", "communication", "development", "organization", "relationship", "consideration",
+  "understanding", "organization", "relationship", "communication", "development", "organization", "relationship",
+  "consideration", "understanding", "organization", "relationship", "communication", "development", "organization",
+  "relationship", "consideration", "understanding", "organization", "relationship", "communication", "development",
+  "organization", "relationship", "consideration", "understanding", "organization", "relationship", "communication",
+  "development", "organization", "relationship", "consideration", "understanding", "organization", "relationship",
+  "communication", "development", "organization", "relationship", "consideration", "understanding", "organization",
+  "relationship", "communication", "development", "organization", "relationship", "consideration", "understanding",
+  "organization", "relationship", "communication", "development", "organization", "relationship", "consideration",
+  "understanding", "organization", "relationship", "communication", "development", "organization", "relationship",
+  "consideration", "understanding", "organization", "relationship", "communication", "development", "organization",
+  "relationship", "consideration", "understanding", "organization", "relationship", "communication", "development",
+  "organization", "relationship", "consideration", "understanding", "organization", "relationship", "communication"
 ];
 
 // Gross WPM = (chars typed / 5) / (time in seconds / 60)
@@ -25,32 +56,32 @@ function updateCountDown() {
   const minutes = Math.floor(time / 60);
   let seconds = time % 60;
 
-  // Countdown until timer reaches 0:00
-  if (countdownEl.innerHTML !== '0:00') {
+  // Countdown until timer reaches 0 seconds
+  if (countdownEl.innerHTML !== '0 Sec') {
     if (totalCharsTyped !== 1 || totalCharsTyped === 1 && time !== startingMinutes * 60) {
-      let netWpm = Math.round((totalCharsTyped / 5) / (secondsPassed / 60));
-      if (secondsPassed !== 0) {
-        liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
-      }
-      if (seconds <= 9) {
-        countdownEl.innerHTML = `${minutes}:0${seconds}`;
-      }
-      else if (seconds >= 10) {
-      countdownEl.innerHTML = `${minutes}:${seconds}`;
-      }
+      countdownEl.innerHTML = `${seconds} Sec`;
+      // Legacy time display
+      // if (seconds <= 9) {
+      //   countdownEl.innerHTML = `${minutes}:0${seconds}`;
+      // }
+      // else if (seconds >= 10) {
+      // countdownEl.innerHTML = `${minutes}:${seconds}`;
+      // }
       time--;
       secondsPassed++;
     }
   }
-  // Stop countdown and display WPM when timer hits 0:00
+  // Stop countdown and display WPM when timer hits 0 seconds
   else {
-    displayGrossWPM.innerHTML = `${calcGrossWPM(inputLength).toString()} words per minute`;
+    testArea.readOnly = true;
+    testArea.value = '';
+    // displayGrossWPM.innerHTML = `${calcGrossWPM(inputLength).toString()} words per minute`;
     clearInterval(countdownIntervalID);
   }
 }
 
 function generateTestWords() {
-  while (testText.innerText.length < 150) {
+  while (testText.innerText.length < 240) {
     testText.innerHTML += `${words[Math.floor(Math.random() * words.length)]} `;
   }
   // Remove space after final word
@@ -136,9 +167,11 @@ function handleInput(event) {
   checkInputAccuracy(event);
 }
 
-function calcNetWPM(event) {
-  let startingTimeInSeconds = 30;
+function updateLiveWpmDisplay() {
+  
+}
 
+function calcNetWPM(event) {
   removeTypoCharsFromTotalChars(event);
   if (totalCharsTyped < 0) {
     totalCharsTyped = 0;
@@ -147,7 +180,9 @@ function calcNetWPM(event) {
     secondsPassed = 1;
   }
   let netWpm = Math.round((totalCharsTyped / 5) / (secondsPassed / 60));
-  // liveWpmDisplay.innerText = `${netWpm} WPM`;
+  if (secondsPassed !== 0) {
+    liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
+  }
 }
 
 function removeTypoCharsFromTotalChars(event) {
@@ -181,6 +216,7 @@ function handleBackspaceInput(event) {
     if (totalCharsTyped > 0) {
       totalCharsTyped--;
     }
+    if (childCounter !== 0) {
     if (testText.children[wordCounter].children[childCounter - 1] !== undefined) {
       testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
     }
@@ -189,9 +225,8 @@ function handleBackspaceInput(event) {
       childCounter = testText.children[wordCounter].children.length;
       testText.children[wordCounter].children[childCounter - 1].classList.remove('correct-char', 'incorrect-char');
     }
-    if (childCounter !== 0) {
-      childCounter--;
-    }
+    childCounter--;
+  }
     inputHandled = true;
   }
 }
@@ -199,9 +234,7 @@ function handleBackspaceInput(event) {
 function moveToNextWord(event) {
   if (event.key === ' ' || testText.children[wordCounter].children[childCounter].innerText.at(0) === ' ' && inputHandled === false) {
     calcNetWPM(event);
-    if (event.key === ' ') {
-      testArea.value = '';
-    }
+    testArea.value = '';
     totalCharsTyped += 1;
     wordCounter++;
     childCounter = 0;
@@ -210,7 +243,7 @@ function moveToNextWord(event) {
 }
 
 function checkInputAccuracy(event) {
-  if (inputHandled === false) {
+  if (inputHandled === false && countdownEl.innerHTML !== '0 Sec') {
     totalCharsTyped +=1;
     if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
       testText.children[wordCounter].children[childCounter].classList.add('correct-char');

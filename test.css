@@ -1,6 +1,29 @@
-/* .test-char {
-  color: rgb(29, 29, 154);
-} */
+@import url("https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.css");
+
+:root {
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, figure, p, ol, ul {
+  margin: 0;
+}
+
+ol[role="list"], ul[role="list"] {
+  list-style: none;
+  padding-inline: 0;
+}
+
+h1, h2, h3, h4, h5 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+img {
+  display: block;
+  max-inline-size: 100%;
+}
+
+/* CSS reset ends here */
 
 .correct-char { 
   color: rgb(0, 255, 0);
@@ -11,10 +34,83 @@
 }
 
 * {
-  background-color: rgb(91, 91, 91);
-  color: rgb(215, 215, 215);
+  font-family: 'Poppins';
+  font-weight: 350;
+  color: #e6e6e6;
 }
 
-.test-word {
-  color: rgb(238, 0, 255);
+body {
+  background-color: #121212;
+  margin: 20px;
+}
+
+#test-text {
+  background-color: #1e1e1e;
+  padding: 10px 0 0 10px;
+  height: 7.5em;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+  padding: 10px 20px 10px 15px;
+}
+
+.test-area {
+  caret-color: #08c70e;
+  padding: 20px 10px 20px 10px;
+  flex-grow: 10;
+}
+
+.test-area:focus {
+  outline: none;
+  border: white solid 1px;
+}
+
+#restart-button,
+.test-area {
+  background-color: #1e1e1e;
+  border: none;
+}
+
+.bottom-ui-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5%;
+}
+
+#restart-button,
+#live-wpm-display,
+#countdown {
+  display: flex;
+  background-color: #1e1e1e;
+  text-align: center;
+  align-items: center;
+  font-weight: 400;
+}
+
+#live-wpm-display,
+#countdown {
+  background-color: #1e1e1e;
+  padding: 20px 10px 20px 10px;
+  flex-grow: 1;
+}
+
+.test-area,
+#countdown,
+#live-wpm-display {
+  height: 55px;
+  margin-right: 1%;
+}
+
+#restart-button {
+  cursor: pointer;
+  display: flex;
+  height: 55px;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  justify-self: center;
+  width: 70%;
 }
