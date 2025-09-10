@@ -60,13 +60,6 @@ function updateCountDown() {
   if (countdownEl.innerHTML !== '0 Sec') {
     if (totalCharsTyped !== 1 || totalCharsTyped === 1 && time !== startingMinutes * 60) {
       countdownEl.innerHTML = `${seconds} Sec`;
-      // Legacy time display
-      // if (seconds <= 9) {
-      //   countdownEl.innerHTML = `${minutes}:0${seconds}`;
-      // }
-      // else if (seconds >= 10) {
-      // countdownEl.innerHTML = `${minutes}:${seconds}`;
-      // }
       time--;
       secondsPassed++;
     }
@@ -75,7 +68,6 @@ function updateCountDown() {
   else {
     testArea.readOnly = true;
     testArea.value = '';
-    // displayGrossWPM.innerHTML = `${calcGrossWPM(inputLength).toString()} words per minute`;
     clearInterval(countdownIntervalID);
   }
 }
@@ -130,6 +122,7 @@ function wrapWordsInSpans() {
 }
 
 function generateTestText() {
+  testText.innerHTML = ''
   generateTestWords();
   wrapCharsInSpans();
   wrapWordsInSpans();
@@ -167,10 +160,6 @@ function handleInput(event) {
   checkInputAccuracy(event);
 }
 
-function updateLiveWpmDisplay() {
-  
-}
-
 function calcNetWPM(event) {
   removeTypoCharsFromTotalChars(event);
   if (totalCharsTyped < 0) {
@@ -179,7 +168,6 @@ function calcNetWPM(event) {
   if (secondsPassed === 0) {
     secondsPassed = 1;
   }
-  let netWpm = Math.round((totalCharsTyped / 5) / (secondsPassed / 60));
   if (secondsPassed !== 0) {
     liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
   }
@@ -255,5 +243,32 @@ function checkInputAccuracy(event) {
       childCounter++;
       console.log('incorrect');
     }
+  }
+}
+
+let restartButton = document.getElementById('restart-button');
+restartButton.addEventListener('click', restartTest)
+
+document.addEventListener('keyup', restartTest)
+
+function restartTest(event) {
+  if (event.type === 'click' || event.key === 'r' && document.activeElement !== testArea) {
+    totalCharsTyped = 1;
+    testArea.value = '';
+    // Reset countdown
+    startingMinutes = 0.5;
+    time = startingMinutes * 60;
+    countdownEl.innerText = '30 Sec'
+    clearInterval(countdownIntervalID);
+    countdownIntervalID = setInterval(updateCountDown, 1000);
+    // Reset WPM
+    liveWpmDisplay.innerText = '0 WPM';
+    secondsPassed = 0;
+    // Reset text styles
+    childCounter = 0;
+    wordCounter = 0;
+    inputHandled;
+    currentWordSubtracted = false;
+    generateTestText();
   }
 }
