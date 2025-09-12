@@ -1,47 +1,70 @@
 const words = [
-  "the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "her", "was", "one", "our", "out",
-  "day", "get", "has", "him", "his", "how", "man", "new", "now", "old", "see", "two", "way", "who", "boy", "did",
-  "its", "let", "put", "say", "she", "too", "use", "very", "back", "even", "here", "just", "know", "live", "long",
-  "made", "make", "more", "only", "over", "some", "take", "them", "then", "these", "thing", "think", "time", "well",
-  "were", "when", "what", "with", "your", "about", "after", "again", "another", "because", "before", "between",
-  "could", "different", "first", "found", "great", "little", "might", "people", "place", "right", "small", "still",
-  "such", "through", "under", "where", "while", "without", "world", "would", "always", "around", "become", "better",
-  "before", "enough", "family", "father", "friend", "friend", "important", "inside", "later", "letter", "letter",
-  "number", "officer", "particular", "problem", "provide", "question", "remember", "something", "together", "toward",
-  "until", "usually", "within", "without", "anything", "becoming", "beginning", "business", "children", "continue",
-  "different", "example", "interest", "learning", "literally", "moment", "nothing", "outside", "possible", "powerful",
-  "practice", "probably", "remember", "response", "running", "sentence", "sometimes", "suddenly", "support", "together",
-  "towards", "treatment", "understand", "whatever", "whether", "without", "yesterday", "according", "beautiful",
-  "community", "consider", "different", "experience", "including", "individual", "international", "important",
-  "necessary", "opportunity", "particular", "situation", "something", "understanding", "throughout", "throughout",
-  "everything", "interesting", "development", "relationship", "information", "understanding", "environment", "government",
-  "organization", "technology", "relationship", "management", "development", "communication", "conversation",
-  "introduction", "consideration", "understanding", "understanding", "representation", "responsibility", "organization",
-  "establishment", "identification", "relationship", "determination", "entertainment", "preparation", "consideration",
-  "development", "understanding", "understanding", "organization", "management", "establishment", "identification",
-  "consideration", "information", "understanding", "development", "organization", "communication", "relationship",
-  "understanding", "environment", "organization", "management", "development", "relationship", "consideration",
-  "understanding", "organization", "communication", "organization", "relationship", "development", "information",
-  "consideration", "organization", "relationship", "management", "development", "communication", "relationship",
-  "consideration", "understanding", "organization", "relationship", "development", "communication", "consideration",
-  "organization", "relationship", "understanding", "development", "organization", "relationship", "communication",
-  "consideration", "development", "organization", "relationship", "understanding", "communication", "development",
-  "organization", "relationship", "consideration", "development", "understanding", "organization", "relationship",
-  "communication", "development", "organization", "relationship", "consideration", "understanding", "organization",
-  "relationship", "communication", "development", "organization", "relationship", "consideration", "understanding",
-  "organization", "relationship", "communication", "development", "organization", "relationship", "consideration",
-  "understanding", "organization", "relationship", "communication", "development", "organization", "relationship",
-  "consideration", "understanding", "organization", "relationship", "communication", "development", "organization",
-  "relationship", "consideration", "understanding", "organization", "relationship", "communication", "development",
-  "organization", "relationship", "consideration", "understanding", "organization", "relationship", "communication",
-  "development", "organization", "relationship", "consideration", "understanding", "organization", "relationship",
-  "communication", "development", "organization", "relationship", "consideration", "understanding", "organization",
-  "relationship", "communication", "development", "organization", "relationship", "consideration", "understanding",
-  "organization", "relationship", "communication", "development", "organization", "relationship", "consideration",
-  "understanding", "organization", "relationship", "communication", "development", "organization", "relationship",
-  "consideration", "understanding", "organization", "relationship", "communication", "development", "organization",
-  "relationship", "consideration", "understanding", "organization", "relationship", "communication", "development",
-  "organization", "relationship", "consideration", "understanding", "organization", "relationship", "communication"
+  "the", "and", "for", "are", "but", "not", "you", "all", "any", "can", "had", "her", "was", "one", "our", "out", 
+  "day", "get", "has", "him", "his", "how", "man", "new", "now", "old", "see", "two", "way", "who", "boy", "did", 
+  "its", "let", "put", "say", "she", "too", "use", "very", "back", "even", "here", "just", "know", "live", "long", 
+  "made", "make", "more", "only", "over", "some", "take", "them", "then", "these", "thing", "think", "time", "well", 
+  "were", "when", "what", "with", "your", "about", "after", "again", "another", "because", "before", "between", 
+  "could", "different", "first", "found", "great", "little", "might", "people", "place", "right", "small", "still", 
+  "such", "through", "under", "where", "while", "without", "world", "would", "always", "around", "become", "better", 
+  "enough", "family", "father", "friend", "important", "inside", "later", "letter", "number", "officer", "particular", 
+  "problem", "provide", "question", "remember", "something", "together", "toward", "until", "usually", "within", 
+  "anything", "becoming", "beginning", "business", "children", "continue", "example", "interest", "learning", 
+  "literally", "moment", "nothing", "outside", "possible", "powerful", "practice", "probably", "response", "running", 
+  "sentence", "sometimes", "suddenly", "support", "towards", "treatment", "understand", "whatever", "whether", 
+  "yesterday", "according", "beautiful", "community", "consider", "experience", "including", "individual", 
+  "international", "necessary", "opportunity", "situation", "representation", "responsibility", "establishment", 
+  "identification", "determination", "entertainment", "preparation", "communication", "conversation", "introduction", 
+  "development", "relationship", "information", "environment", "government", "organization", "management", "technology", 
+  "achievement", "additional", "agreement", "authority", "behavior", "challenge", "collection", "committee", "comparison", 
+  "connection", "direction", "discussion", "education", "equipment", "foundation", "guidance", "influence", "instance", 
+  "instruction", "investment", "operation", "performance", "political", "population", "procedure", "recognition", 
+  "reduction", "reflection", "relationship", "requirement", "selection", "solution", "statement", "structure", "suggestion", 
+  "technology", "treatment", "variation", "variation", "achievement", "additional", "agreement", "authority", "behavior", 
+  "challenge", "collection", "committee", "comparison", "connection", "direction", "discussion", "education", "equipment", 
+  "foundation", "guidance", "influence", "instance", "instruction", "investment", "operation", "performance", "political", 
+  "population", "procedure", "recognition", "reduction", "reflection", "requirement", "selection", "solution", "statement", 
+  "structure", "suggestion", "variation", "available", "capacity", "chemical", "decision", "effective", "emotional", 
+  "equipment", "estimate", "excellent", "exercise", "historical", "important", "increasing", "industry", "material", 
+  "necessary", "operation", "possible", "position", "practical", "principal", "relative", "selection", "significant", 
+  "solution", "statement", "strategic", "technical", "treatment", "valuable", "advantage", "agreement", "analysis", 
+  "approach", "argument", "attention", "available", "behavior", "business", "campaign", "capacity", "category", "century", 
+  "challenge", "chemical", "community", "comparison", "condition", "conference", "consider", "contract", "creation", 
+  "customer", "decision", "direction", "division", "education", "employee", "equipment", "estimate", "evidence", "exchange", 
+  "exercise", "financial", "function", "government", "guidance", "historical", "hospital", "industry", "information", 
+  "insurance", "interest", "international", "investment", "knowledge", "language", "location", "management", "material", 
+  "medical", "member", "message", "national", "necessary", "objective", "operation", "organization", "opportunity", "original", 
+  "particular", "performance", "personal", "political", "position", "possible", "practice", "precious", "principal", "private", 
+  "probably", "problem", "process", "product", "professional", "program", "project", "property", "question", "regional", 
+  "relationship", "republic", "resource", "response", "result", "review", "safety", "science", "selection", "senior", 
+  "service", "solution", "standard", "statement", "strategy", "structure", "student", "support", "system", "technology", 
+  "treatment", "university", "valuable", "various", "vehicle", "violence", "warning", "weather", "whether", "willing", 
+  "without", "academic", "activity", "addition", "address", "advanced", "advice", "affect", "against", "agency", "agreement", 
+  "almost", "already", "although", "among", "amount", "analysis", "animal", "another", "answer", "anything", "appear", 
+  "approach", "area", "arrive", "article", "artist", "assume", "attention", "author", "available", "average", "balance", 
+  "beautiful", "behavior", "behind", "belief", "benefit", "between", "beyond", "billion", "brother", "budget", "building", 
+  "business", "certain", "chance", "change", "character", "charge", "choice", "choose", "citizen", "classic", "clearly", 
+  "college", "common", "company", "compare", "complete", "computer", "condition", "consider", "contain", "control", "correct", 
+  "cultural", "current", "customer", "decision", "defense", "degree", "difficult", "director", "discover", "discuss", 
+  "disease", "distance", "document", "economy", "education", "effect", "effort", "election", "employee", "energy", "enough", 
+  "environment", "especially", "establish", "evening", "evidence", "exactly", "example", "exercise", "experience", "explain", 
+  "factor", "family", "federal", "feeling", "finance", "foreign", "forward", "freedom", "friend", "general", "greater", 
+  "ground", "growth", "hospital", "however", "human", "identify", "important", "include", "individual", "industry", 
+  "information", "interest", "international", "investment", "involve", "itself", "journal", "justice", "knowledge", "language", 
+  "lawyer", "leader", "learn", "lecture", "legal", "letter", "likely", "limited", "listen", "living", "local", "longer", 
+  "machine", "manager", "marriage", "material", "medical", "meeting", "mention", "message", "million", "mission", "modern", 
+  "moment", "money", "morning", "natural", "necessary", "network", "nothing", "notice", "number", "observe", "officer", 
+  "opinion", "opportunity", "organization", "original", "outside", "package", "parent", "particular", "partner", "patient", 
+  "pattern", "people", "perform", "perhaps", "personal", "physical", "picture", "place", "planning", "player", "policy", 
+  "position", "possible", "practice", "prepare", "present", "pressure", "probably", "problem", "process", "produce", 
+  "product", "program", "project", "protect", "provide", "purpose", "quality", "rather", "realize", "receive", "recent", 
+  "recognize", "region", "relationship", "remember", "require", "research", "response", "result", "return", "reveal", 
+  "review", "right", "role", "running", "safety", "science", "season", "second", "section", "security", "sense", "service", 
+  "several", "short", "similar", "simple", "simply", "situation", "society", "someone", "special", "specific", "speech", 
+  "spend", "sport", "staff", "standard", "statement", "strategy", "student", "subject", "success", "support", "system", 
+  "teacher", "together", "toward", "training", "travel", "treat", "treatment", "trial", "trouble", "typical", "under", 
+  "understand", "union", "university", "usually", "value", "various", "vehicle", "victory", "violence", "vision", "visit", 
+  "voice", "wait", "walk", "wall", "want", "warning", "watch", "water", "week", "weight", "whether", "within", "woman", 
+  "wonder", "word", "work", "worker", "world", "worry", "write", "writer", "wrong", "year", "young", "yourself"
 ];
 
 // Gross WPM = (chars typed / 5) / (time in seconds / 60)
@@ -59,6 +82,9 @@ function updateCountDown() {
   // Countdown until timer reaches 0 seconds
   if (countdownEl.innerHTML !== '0 Sec') {
     if (totalCharsTyped !== 1 || totalCharsTyped === 1 && time !== startingMinutes * 60) {
+      if (seconds === 0 && countdownEl.innerHTML === '60 Sec') {
+        seconds = 59;
+      }
       countdownEl.innerHTML = `${seconds} Sec`;
       time--;
       secondsPassed++;
@@ -161,15 +187,17 @@ function handleInput(event) {
 }
 
 function calcNetWPM(event) {
-  removeTypoCharsFromTotalChars(event);
-  if (totalCharsTyped < 0) {
-    totalCharsTyped = 0;
-  }
-  if (secondsPassed === 0) {
-    secondsPassed = 1;
-  }
-  if (secondsPassed !== 0) {
-    liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
+  if (testArea.readOnly === false) {
+    removeTypoCharsFromTotalChars(event);
+    if (totalCharsTyped < 0) {
+      totalCharsTyped = 0;
+    }
+    if (secondsPassed === 0) {
+      secondsPassed = 1;
+    }
+    if (secondsPassed !== 0) {
+      liveWpmDisplay.innerText = `${Math.round((totalCharsTyped / 5) / (secondsPassed / 60))} WPM`;
+    }
   }
 }
 
@@ -246,19 +274,20 @@ function checkInputAccuracy(event) {
   }
 }
 
+let startingTimeString = '30 Sec';
 let restartButton = document.getElementById('restart-button');
 restartButton.addEventListener('click', restartTest)
 
 document.addEventListener('keyup', restartTest)
 
 function restartTest(event) {
-  if (event.type === 'click' || event.key === 'r' && document.activeElement !== testArea) {
+  if (event.type === 'click' || event.key === 'r' && document.activeElement !== testArea || event.key === 'R' && document.activeElement !== testArea) {
+    testArea.readOnly = false;
     totalCharsTyped = 1;
     testArea.value = '';
     // Reset countdown
-    startingMinutes = 0.5;
     time = startingMinutes * 60;
-    countdownEl.innerText = '30 Sec'
+    countdownEl.innerText = startingTimeString;
     clearInterval(countdownIntervalID);
     countdownIntervalID = setInterval(updateCountDown, 1000);
     // Reset WPM
@@ -270,5 +299,76 @@ function restartTest(event) {
     inputHandled;
     currentWordSubtracted = false;
     generateTestText();
+  }
+}
+
+testText.addEventListener('click', () => (testArea.focus()))
+
+let fifteenSecondTestButton = document.getElementById('15-second-timer-button')
+let thirtySecondTestButton = document.getElementById('30-second-timer-button')
+let fortyFiveSecondTestButton = document.getElementById('45-second-timer-button')
+let sixtySecondTestButton = document.getElementById('60-second-timer-button')
+
+fifteenSecondTestButton.addEventListener('click', changeTestDuration)
+thirtySecondTestButton.addEventListener('click', changeTestDuration)
+fortyFiveSecondTestButton.addEventListener('click', changeTestDuration)
+sixtySecondTestButton.addEventListener('click', changeTestDuration)
+
+function changeTestDuration(event) {
+  restartTest(event);
+  if (event.target.id === '15-second-timer-button') {
+    startingMinutes = 0.25;
+    startingTimeString = '15 Sec'
+  }
+  else if (event.target.id === '30-second-timer-button') {
+    startingMinutes = 0.5;
+    startingTimeString = '30 Sec'
+  }
+  else if (event.target.id === '45-second-timer-button') {
+    startingMinutes = 0.75;
+    startingTimeString = '45 Sec'
+  }
+  else if (event.target.id === '60-second-timer-button') {
+    startingMinutes = 1;
+    startingTimeString = '60 Sec'
+  }
+  countdownEl.innerText = startingTimeString;
+  time = startingMinutes * 60;
+  console.log(time)
+  Math.round(time)
+  clearInterval(countdownIntervalID);
+  countdownIntervalID = setInterval(updateCountDown, 1000);
+  addTestDurationDropDown();
+}
+
+fifteenSecondTestButton.remove()
+thirtySecondTestButton.remove()
+fortyFiveSecondTestButton.remove()
+sixtySecondTestButton.remove()
+
+countdownEl.addEventListener('click', addTestDurationDropDown)
+
+let dropDownContainer = document.getElementById('countdown-drop-down');
+let dropDownActive = false;
+
+function addTestDurationDropDown() {
+  if (dropDownActive === false) {
+    dropDownContainer.appendChild(fifteenSecondTestButton)
+    dropDownContainer.appendChild(thirtySecondTestButton)
+    dropDownContainer.appendChild(fortyFiveSecondTestButton)
+    dropDownContainer.appendChild(sixtySecondTestButton)
+    dropDownActive = true;
+  }
+}
+
+document.addEventListener('click', removeDropDown)
+
+function removeDropDown(event) {
+  if (event.target !== countdownEl && dropDownActive === true) {
+    fifteenSecondTestButton.remove()
+    thirtySecondTestButton.remove()
+    fortyFiveSecondTestButton.remove()
+    sixtySecondTestButton.remove()
+    dropDownActive = false;
   }
 }
