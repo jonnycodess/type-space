@@ -186,9 +186,10 @@ function handleInput(event) {
   checkInputAccuracy(event);
 }
 
-function calcNetWPM(event) {
+function calcNetWPM (event) {
   if (testArea.readOnly === false) {
     removeTypoCharsFromTotalChars(event);
+    checkForIncompleteWord();
     if (totalCharsTyped < 0) {
       totalCharsTyped = 0;
     }
@@ -201,19 +202,29 @@ function calcNetWPM(event) {
   }
 }
 
+function checkForIncompleteWord() {
+  let children = testText.children[wordCounter].children;
+  for (let i = 0; i < children.length; i++) {
+    if (testText.children[wordCounter].children[i].classList.value === 'test-char' && i !== testText.children[wordCounter].children.length - 1) {
+      testText.children[wordCounter].children[i].classList.remove('correct-char', 'incorrect-char');
+      testText.children[wordCounter].children[i].classList.add('incorrect-char')
+    }
+  }
+}
+
 function removeTypoCharsFromTotalChars(event) {
   if (event.key === ' ' && currentWordSubtracted === false) {
     let currentWordCharsTyped = 0;
     for (let i = 0; i < testText.children[wordCounter].children.length ; i++) {
       if (testText.children[wordCounter].children[i].classList.contains('correct-char') || testText.children[wordCounter].children[i].classList.contains('incorrect-char')) {
       currentWordCharsTyped++;
-      console.log(`currentWordCharsTyped ${currentWordCharsTyped}`)
-      console.log(testText.children[wordCounter].children[i].classList)
-    }
-      if (currentWordSubtracted === false && testText.children[wordCounter].children[i].classList.contains('incorrect-char')) {
-        console.log('nested if')
-        console.log(`word children length ${testText.children[wordCounter].children.length}`)
+      // console.log(`currentWordCharsTyped ${currentWordCharsTyped}`)
+      // console.log(testText.children[wordCounter].children[i].classList)
+      }
+      if (currentWordSubtracted === false && testText.children[wordCounter].children[i].classList.contains('incorrect-char') || currentWordSubtracted === false && testText.children[wordCounter].children[i].classList.value === 'test-char' && i !== testText.children[wordCounter].children.length - 1) {        // console.log('nested if')
+        // console.log(`word children length ${testText.children[wordCounter].children.length}`)
         totalCharsTyped -= testText.children[wordCounter].children.length;
+        styleIncorrectWord();
         currentWordSubtracted = true;
         if (totalCharsTyped < 0) {
           totalCharsTyped = 0;
@@ -225,6 +236,14 @@ function removeTypoCharsFromTotalChars(event) {
     }
     currentWordSubtracted = false;
   }
+}
+
+function styleIncorrectWord() {
+  let children = testText.children[wordCounter].children;
+    for (let i = 0; i < children.length; i++) {
+      testText.children[wordCounter].children[i].classList.remove('correct-char', 'incorrect-char');
+      testText.children[wordCounter].children[i].classList.add('incorrect-char')
+    }
 }
 
 function handleBackspaceInput(event) {
@@ -264,12 +283,12 @@ function checkInputAccuracy(event) {
     if (event.key === testText.children[wordCounter].children[childCounter].innerText.at(0)) {
       testText.children[wordCounter].children[childCounter].classList.add('correct-char');
       childCounter++; 
-      console.log('correct');
+      // console.log('correct');
     }
     else {
       testText.children[wordCounter].children[childCounter].classList.add('incorrect-char');
       childCounter++;
-      console.log('incorrect');
+      // console.log('incorrect');
     }
   }
 }
@@ -281,7 +300,7 @@ restartButton.addEventListener('click', restartTest)
 document.addEventListener('keyup', restartTest)
 
 function restartTest(event) {
-  if (event.type === 'click' || event.key === 'r' && document.activeElement !== testArea || event.key === 'R' && document.activeElement !== testArea) {
+  if (event.type === 'click' || event.key === 'r' && document.activeElement !== testArea || event.key === 'R' && document.activeElement !== testArea || event.key === 'r' && testArea.readOnly === true || event.key === 'R' && testArea.readOnly === true) {
     testArea.readOnly = false;
     totalCharsTyped = 1;
     testArea.value = '';
@@ -334,7 +353,7 @@ function changeTestDuration(event) {
   }
   countdownEl.innerText = startingTimeString;
   time = startingMinutes * 60;
-  console.log(time)
+  // console.log(time)
   Math.round(time)
   clearInterval(countdownIntervalID);
   countdownIntervalID = setInterval(updateCountDown, 1000);
@@ -370,5 +389,8 @@ function removeDropDown(event) {
     fortyFiveSecondTestButton.remove()
     sixtySecondTestButton.remove()
     dropDownActive = false;
+  }
+  else if (event.target === countdownEl && dropDownActive === true) {
+    return;
   }
 }
