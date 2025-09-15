@@ -40,8 +40,10 @@ img {
 }
 
 body {
-  background-color: #121212;
+  background-color: #080808;
   margin: 20px;
+  height: 90vh;
+
 }
 
 #test-text {
@@ -51,6 +53,7 @@ body {
   font-size: 1.5em;
   letter-spacing: 1px;
   padding: 10px 20px 10px 15px;
+  cursor: pointer;
 }
 
 .test-area {
@@ -110,7 +113,9 @@ body {
 }
 
 .content {
+  height: 90vh;
   justify-self: center;
+  align-content: center;
   width: 70%;
 }
 
@@ -118,8 +123,14 @@ body {
   cursor: pointer;
 }
 
+.countdown-dropdown-container {
+  width: 100%;
+  position: relative;
+}
+
 #countdown-drop-down {
   display: flex;
+  position: absolute;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -136,4 +147,33 @@ body {
 
 .time-duration-button:hover {
   background-color: #141414;
+}
+
+#header-menu-container {
+  display: flex;
+  justify-content: center;
+}
+
+.header-menu-option {
+  margin: -3.2rem 10% 10% 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e6e6e6;
+  cursor: pointer;
+}
+
+#about-button {
+  margin-right: 0;
+}
+
+#header-logo {
+  margin-bottom: 1rem;
+  justify-self: center;
+  width: 20%;
+}
+
+#header-container {
+  margin-top: -2.3rem;
+  position: absolute;
+  justify-self: center;
+  width: 70%;
 }
