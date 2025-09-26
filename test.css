@@ -23,7 +23,7 @@ img {
   max-inline-size: 100%;
 }
 
-/* CSS reset ends here */
+/* Reset ends here */
 
 .correct-char { 
   color: rgb(0, 255, 0);
@@ -176,4 +176,15 @@ body {
   position: absolute;
   justify-self: center;
   width: 70%;
+}
+
+#footer-container {
+  display: flex;
+  justify-content: center;
+}
+
+#github-button {
+  /* margin-right: 1.5%; */
+  width: 3vh;
+  cursor: pointer;
 }
